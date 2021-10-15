@@ -21,6 +21,10 @@ let grid = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 ]
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 var board = new Board(grid)
 var agent = new Agent(4, 8, board)
 
