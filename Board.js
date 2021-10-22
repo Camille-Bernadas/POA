@@ -60,7 +60,7 @@ class Board {
 		  			ctx.fillStyle = "#B67B40";
 		  			break;
 
-				case TILE_TYPE.BOX:
+				case TILE_TYPE.EXIT:
 		  			ctx.fillStyle = "#B62BC0";
 		  			break;
 
