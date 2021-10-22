@@ -18,11 +18,11 @@ let grid = [
 [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,4,1,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,7],
 ]
 
 var board = new Board(grid)
-var agent = new Agent(4, 8, board)
+var agent = new Agent(0, 0, board)
 
 function react(nomTouche){
   if (nomTouche === 'z' || nomTouche === 'ArrowUp') {

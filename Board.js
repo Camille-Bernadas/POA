@@ -5,7 +5,8 @@ const TILE_TYPE = {
 	BUTTON_ON: 3,
 	BUTTON_OFF: 4,
 	BOX: 5,
-	DOOR: 6
+	DOOR: 6,
+	EXIT: 7
 }
 
 class Board {
@@ -57,6 +58,10 @@ class Board {
 		  			
 		  		case TILE_TYPE.BOX:
 		  			ctx.fillStyle = "#B67B40";
+		  			break;
+
+				case TILE_TYPE.BOX:
+		  			ctx.fillStyle = "#B62BC0";
 		  			break;
 
 		  		default:
