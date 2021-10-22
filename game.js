@@ -4,11 +4,11 @@ let grid = [
 [1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0],
 [1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1],
-[1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1],
-[1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+[1,1,0,0,1,1,0,0,0,1,1,1,0,0,0,1,1,1,1,1],
+[1,1,0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,0,3,1,1,1,1,1,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -34,25 +34,38 @@ function sleep(milliseconds) {
 var board = new Board(grid)
 var agent = new Agent(0, 0, board)
 
-var graph = new Graph(grid);
-var start = graph.grid[0][0];
-var end = graph.grid[10][10];
-var result = astar.search(graph, start, end);
+
 
 
 function play(){
-  result = astar.search(graph, start, end);
+  var graph = new Graph(grid);
+  var start = graph.grid[agent.x][agent.y];
+  var end = graph.grid[10][10];
+
+  var result = astar.search(graph, start, end);
   console.log(result)
   for(let i = 0; i < result.length; i++){
+    console.log(result[i].x - agent.x, result[i].y - agent.y)
     agent.move(result[i].x - agent.x, result[i].y - agent.y)
-    sleep(1000)
+    //sleep(100)
   }
 }
 
+function toggleWall(){
+  if(grid[12][9] == 0){
+      grid[12][9] = 1
+  }
+  else{
+    grid[12][9] = 0
+  }
+  board.updateBoard(grid)
+
+}
 
 function react(nomTouche){
   if (nomTouche === 'z' || nomTouche === 'ArrowUp') {
       agent.move(-1,0)
+      console.log(agent);
   }
 
   if (nomTouche === 's' || nomTouche === 'ArrowDown') {
@@ -71,6 +84,11 @@ function react(nomTouche){
 
   if (nomTouche === 'p'){
     play()
+  }
+
+  if (nomTouche === 'w'){
+    toggleWall()
+    console.log("Wall")
   }
 }
 

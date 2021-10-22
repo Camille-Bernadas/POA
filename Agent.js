@@ -8,7 +8,7 @@ class Agent {
     }
 
     move(x, y){
-      this.board.grid[this.x][this.y] = 1
+      this.board.grid[this.x][this.y] = 3
       if(this.board.grid[this.x+x][this.y+y] == 1 || this.board.grid[this.x+x][this.y+y] == 3){
         this.x += x
         this.y += y
@@ -16,6 +16,7 @@ class Agent {
       this.board.grid[this.x][this.y] = 2
       this.board.updateBoard(this.board.grid)
       console.log(this.x + "," + this.y)
+      return
     }
 
 }
