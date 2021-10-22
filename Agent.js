@@ -8,8 +8,13 @@ class Agent {
     }
 
     move(x, y){
-      this.board.grid[this.x][this.y] = 3
-      if(this.board.grid[this.x+x][this.y+y] == 1 || this.board.grid[this.x+x][this.y+y] == 3){
+      this.board.grid[this.x][this.y] = 1
+      let newX = this.x+x
+      let newY = this.y+y
+      if(newX < 0 || newX > this.board.x || newY < 0 || newY > this.board.y){
+        return
+      }
+      if(this.board.grid[newX][newY] == 1 || this.board.grid[newX][newY] == 3){
         this.x += x
         this.y += y
       }
