@@ -65,7 +65,6 @@ function toggleWall(){
 function react(nomTouche){
   if (nomTouche === 'z' || nomTouche === 'ArrowUp') {
       agent.move(-1,0)
-      console.log(agent);
   }
 
   if (nomTouche === 's' || nomTouche === 'ArrowDown') {
@@ -73,12 +72,10 @@ function react(nomTouche){
   }
 
   if (nomTouche === 'q' || nomTouche === 'ArrowLeft') {
-
     agent.move(0,-1)
   }
 
   if (nomTouche === 'd' || nomTouche === 'ArrowRight') {
-
     agent.move(0,1)
   }
 
@@ -88,7 +85,6 @@ function react(nomTouche){
 
   if (nomTouche === 'w'){
     toggleWall()
-    console.log("Wall")
   }
 }
 
