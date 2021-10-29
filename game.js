@@ -68,7 +68,7 @@ function generateRandomMap(grid, agent){
 
 let flagX;
 let flagY;
-let flagPosition = generateRandomMap(grid, agent)
+let flagPosition = {flagX: 10, flagY: 10};
 function restart(){
   flagPosition = generateRandomMap(grid, agent)
 }
