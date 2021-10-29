@@ -24,13 +24,60 @@ let grid = [
 var board = new Board(grid)
 var agent = new Agent(0, 0, board)
 
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
+function generateRandomMap(grid, agent){
+  let flagFound = 0;
+  for (var i = 19; i >= 0; i--) {
+    for (var j = 19; j >= 0; j--) {
+      let wallRandom = getRandomIntInclusive(0,3)
+      let flagRandom = getRandomIntInclusive(0,100)
+      if (wallRandom == 0) {
+        grid[i][j] = 0
+      }
+      else{
+        grid[i][j] = 1;
+      }
+      if (flagRandom == 2 && flagFound == 0) {
+        flagFound = 1;
+        grid[i][j] = 3;
+        flagX = i
+        flagY = j
+
+      }
+    }
+  }
+
+  if(flagFound == 0){
+    grid[19][19] = 3;
+    flagX = 19
+    flagY = 19
+  }
+  grid[agent.x][agent.y] = 2;
+
+  board.updateBoard();
+  return {flagX, flagY}
+}
 
 
+
+
+let flagX;
+let flagY;
+let flagPosition = generateRandomMap(grid, agent)
+function restart(){
+  flagPosition = generateRandomMap(grid, agent)
+}
 
 async function play(){
   var graph = new Graph(grid);
   var start = graph.grid[agent.x][agent.y];
-  var end = graph.grid[10][10];
+
+  var end = graph.grid[flagPosition.flagX][flagPosition.flagY];
 
   const timer = ms => new Promise(res => setTimeout(res, ms))
 
@@ -73,6 +120,9 @@ function react(nomTouche){
 
   if (nomTouche === 'p'){
     play()
+  }
+  if (nomTouche === 'r'){
+    restart()
   }
 
   if (nomTouche === 'w'){
