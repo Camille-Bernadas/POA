@@ -21,33 +21,25 @@ let grid = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 ]
 
-
-
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
 var board = new Board(grid)
 var agent = new Agent(0, 0, board)
 
 
 
 
-function play(){
+async function play(){
   var graph = new Graph(grid);
   var start = graph.grid[agent.x][agent.y];
   var end = graph.grid[10][10];
+
+  const timer = ms => new Promise(res => setTimeout(res, ms))
 
   var result = astar.search(graph, start, end);
   console.log(result)
   for(let i = 0; i < result.length; i++){
     console.log(result[i].x - agent.x, result[i].y - agent.y)
     agent.move(result[i].x - agent.x, result[i].y - agent.y)
-    //sleep(100)
+    await timer(69);
   }
 }
 
