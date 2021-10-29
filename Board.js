@@ -1,3 +1,11 @@
+WALL = 0;
+EMPTY = 1;
+PLAYER = 2;
+GOAL = 3;
+BUTTON_OFF = 4;
+BUTTON_ON = 5;
+BOX = 6;
+
 class Board {
 
 	constructor(grid) {
@@ -26,17 +34,26 @@ class Board {
 				divTile.classList.add("tile");
 				divTile.style.height = vh+"vh";
 				switch(tile) {
-					case 0:
+					case WALL:
 						divTile.style.backgroundColor = "black";
 						break;
-					case 1:
+					case EMPTY:
 						divTile.style.backgroundColor = "white";
 						break;
-					case 2:
+					case PLAYER:
 						divTile.style.backgroundColor = "red";
 						break;
-					case 3:
+					case GOAL:
 						divTile.style.backgroundColor = "yellow";
+						break;
+					case BOX:
+						divTile.style.backgroundColor = "brown";
+						break;
+					case BUTTON_ON:
+						divTile.style.backgroundColor = "pink";
+						break;
+					case BUTTON_OFF:
+						divTile.style.backgroundColor = "fuschia";
 						break;
 					default:
 						break;
