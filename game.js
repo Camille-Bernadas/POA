@@ -5,12 +5,12 @@ let grid = [
 [1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0],
 [1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1],
 [1,1,0,0,1,1,0,0,0,1,1,1,0,0,0,1,1,1,1,1],
-[1,1,0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,0,3,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
+[1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+[1,1,1,BOX,1,1,1,1,1,1,BOX,1,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,1,1],
+[1,1,1,1,1,BUTTON_OFF,1,1,1,0,GOAL,0,1,1,1,1,1,1,1,1],
+[1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
 [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
@@ -22,7 +22,7 @@ let grid = [
 ]
 
 var board = new Board(grid)
-var agent = new Agent(0, 0, board)
+var agent = new Agent(6, 10, board)
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -97,25 +97,25 @@ function toggleWall(){
   else{
     grid[12][9] = 0
   }
-  board.updateBoard(grid)
+  board.updateBoard(grid);
 
 }
 
 function react(nomTouche){
   if (nomTouche === 'z' || nomTouche === 'ArrowUp') {
-      agent.move(-1,0)
+      agent.move(-1,0);
   }
 
   if (nomTouche === 's' || nomTouche === 'ArrowDown') {
-      agent.move(1, 0)
+      agent.move(1, 0);
   }
 
   if (nomTouche === 'q' || nomTouche === 'ArrowLeft') {
-    agent.move(0,-1)
+    agent.move(0,-1);
   }
 
   if (nomTouche === 'd' || nomTouche === 'ArrowRight') {
-    agent.move(0,1)
+    agent.move(0,1);
   }
 
   if (nomTouche === 'p'){

@@ -35,25 +35,25 @@ class Board {
 				divTile.style.height = vh+"vh";
 				switch(tile) {
 					case WALL:
-						divTile.style.backgroundColor = "black";
+						divTile.classList.add("wall");
 						break;
 					case EMPTY:
-						divTile.style.backgroundColor = "white";
+						//divTile.style.backgroundColor = "white";
 						break;
 					case PLAYER:
-						divTile.style.backgroundColor = "red";
+						divTile.classList.add("player");
 						break;
 					case GOAL:
-						divTile.style.backgroundColor = "yellow";
+						divTile.classList.add("goal");
 						break;
 					case BOX:
-						divTile.style.backgroundColor = "brown";
+						divTile.classList.add("box");
 						break;
 					case BUTTON_ON:
-						divTile.style.backgroundColor = "pink";
+						divTile.classList.add("button-on");
 						break;
 					case BUTTON_OFF:
-						divTile.style.backgroundColor = "fuschia";
+						divTile.classList.add("button-off");
 						break;
 					default:
 						break;

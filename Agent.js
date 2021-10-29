@@ -23,6 +23,11 @@ class Agent {
         this.y += y;
       }
 
+      if(this.board.grid[newX][newY] == GOAL) {
+        alert("YOU WON");
+        restart();
+      }
+
       //Box handling
       if(this.board.grid[newX][newY] == BOX) {
         if(this.board.grid[newX+x][newY+y] == EMPTY) {
