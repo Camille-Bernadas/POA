@@ -8,30 +8,40 @@ class Board {
 	}
 
 	updateBoard() {
-	  var canvas = document.getElementById('game');
-	  if (canvas.getContext) {
-	    var ctx = canvas.getContext('2d');
-	    ctx.clearRect(0, 0, 721, 721);
-
-	    for (var i = 0; i < this.x; i++) {
-	      for (var j = 0; j < this.y; j++) {
-		      switch (this.grid[i][j]){
-			case 0:
-				ctx.fillStyle = "black";
-				break;
-			case 1:
-				ctx.fillStyle = "#FFFFFC"; 
-				break;
-			case 2:
-				ctx.fillStyle = "red";      
-				break;
-			case 3:
-				ctx.fillStyle = "yellow";      
-				break;
-		      }
-	          ctx.fillRect(36*j+1, 36*i+1, 35, 35);
-	      }
-	    }
+	  var gameBoard = document.getElementById('game');
+		gameBoard.innerHTML = "";
+		let width = grid[0].length;
+		console.log("width" + width);
+		let vh = Math.round((75/width)*100)/100;
+		console.log("vh" + vh);
+		let styleColumns = "";
+		for(let i = 0; i<width; i++) {
+			styleColumns += vh+"vh ";
+		}
+		gameBoard.style.gridTemplateColumns += styleColumns;
+		for(let line of grid) {
+			for(let tile of line) {
+				let divTile = document.createElement("div");
+				gameBoard.appendChild(divTile);
+				divTile.classList.add("tile");
+				divTile.style.height = vh+"vh";
+				switch(tile) {
+					case 0:
+						divTile.style.backgroundColor = "black";
+						break;
+					case 1:
+						divTile.style.backgroundColor = "white";
+						break;
+					case 2:
+						divTile.style.backgroundColor = "red";
+						break;
+					case 3:
+						divTile.style.backgroundColor = "yellow";
+						break;
+					default:
+						break;
+				}
+			}
 	  }
 	}
 
