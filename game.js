@@ -36,11 +36,17 @@ function generateRandomMap(grid, agent){
     for (var j = 19; j >= 0; j--) {
       let wallRandom = getRandomIntInclusive(0,3)
       let flagRandom = getRandomIntInclusive(0,100)
+      let boxRandom = getRandomIntInclusive(0,100)
       if (wallRandom == 0) {
         grid[i][j] = 0
       }
       else{
-        grid[i][j] = 1;
+        if(boxRandom == 0){
+          grid[i][j] = BOX;
+        }
+        else{
+          grid[i][j] = 1;
+        }
       }
       if (flagRandom == 2 && flagFound == 0) {
         flagFound = 1;
