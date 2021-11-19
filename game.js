@@ -134,9 +134,14 @@ function react(nomTouche){
   if (nomTouche === 'w'){
     toggleWall()
   }
+
+  if (nomTouche === ' ') {
+    console.log("Interact");
+    agent.interact();
+  }
 }
 
 document.addEventListener('keydown', (event) => {
   const nomTouche = event.key;
-  react(nomTouche)
+  react(nomTouche);
 })

@@ -20,7 +20,7 @@ class Board {
 		gameBoard.innerHTML = "";
 		let width = grid[0].length;
 		console.log("width" + width);
-		let vh = Math.round((75/width)*100)/100;
+		let vh = Math.round((90/width)*100)/100;
 		console.log("vh" + vh);
 		let styleColumns = "";
 		for(let i = 0; i<width; i++) {
@@ -38,7 +38,6 @@ class Board {
 						divTile.classList.add("wall");
 						break;
 					case EMPTY:
-						//divTile.style.backgroundColor = "white";
 						break;
 					case PLAYER:
 						divTile.classList.add("player");

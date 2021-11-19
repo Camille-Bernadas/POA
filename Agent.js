@@ -42,4 +42,23 @@ class Agent {
       return;
     }
 
+    interact(){
+      //Interactable
+      for(let i = this.x-1; i<=this.x+1; i++) {
+          for(let j = this.y-1; j<=this.y+1; j++) {
+              if(i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
+                  if(this.board.grid[i][j] == BUTTON_OFF) {
+                      this.board.grid[i][j] = BUTTON_ON;
+                      this.board.updateBoard(this.board.grid);
+                  }
+                  else if(this.board.grid[i][j] == BUTTON_ON) {
+                      this.board.grid[i][j] = BUTTON_OFF;
+                      this.board.updateBoard(this.board.grid);
+                  }
+              }
+          }
+      }
+      return;
+    }
+
 }
