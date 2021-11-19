@@ -46,7 +46,7 @@ class Agent {
       //Interactable
         let x = this.x;
         let y = this.y;
-        let posInter = [[x-1, y], [x+1, y], [x, y-1], [x, y+1]]
+            let posInter = [[x-1, y], [x+1, y], [x, y-1], [x, y+1]]
 
         for(let pos of posInter) {
             let i = pos[0];

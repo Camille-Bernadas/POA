@@ -45,7 +45,7 @@ var astar = {
   * @param {Function} [options.heuristic] Heuristic function (see
   *          astar.heuristics).
   */
-  search: function(graph, start, end, options) {
+  search: function(graph, start, end, options, useBox = false) {
     graph.cleanDirty();
     options = options || {};
     var heuristic = options.heuristic || astar.heuristics.manhattan;
@@ -78,10 +78,18 @@ var astar = {
       for (var i = 0, il = neighbors.length; i < il; ++i) {
         var neighbor = neighbors[i];
 
-        if (neighbor.closed || neighbor.isWall()) {
-          // Not a valid node to process, skip to next neighbor.
-          continue;
+        if(useBox) {
+          if(neighbor.closed || neighbor.isWallBox()) {
+            // Not a valid node to process, skip to next neighbor.
+            continue;
+          }
+        } else {
+          if (neighbor.closed || neighbor.isWall()) {
+            // Not a valid node to process, skip to next neighbor.
+            continue;
+          }
         }
+
 
         // The g score is the shortest distance from start to current node.
         // We need to check if the path we have arrived at this neighbor is the shortest one we have seen yet.
@@ -273,7 +281,11 @@ GridNode.prototype.getCost = function(fromNeighbor) {
 };
 
 GridNode.prototype.isWall = function() {
-  return this.weight === 0;
+  return this.weight === WALL || this.weight === BUTTON_ON || this.weight=== BUTTON_OFF;
+};
+
+GridNode.prototype.isWallBox = function() {
+  return this.weight === WALL ||  this.weight === BOX || this.weight === BUTTON_ON || this.weight=== BUTTON_OFF;
 };
 
 function BinaryHeap(scoreFunction) {
