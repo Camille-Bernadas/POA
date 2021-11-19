@@ -52,12 +52,22 @@ class Agent {
             let i = pos[0];
             let j = pos[1];
             if (i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
-                if (this.board.grid[i][j] == BUTTON_OFF) {
-                    this.board.grid[i][j] = BUTTON_ON;
-                    this.board.updateBoard(this.board.grid);
-                } else if (this.board.grid[i][j] == BUTTON_ON) {
-                    this.board.grid[i][j] = BUTTON_OFF;
-                    this.board.updateBoard(this.board.grid);
+                switch(this.board.grid[i][j]) {
+                    case BUTTON_OFF:
+                        this.board.grid[i][j] = BUTTON_ON;
+                        this.board.updateBoard(this.board.grid);
+                        //TODO : Delete wall
+                        break;
+                    case BUTTON_ON:
+                        this.board.grid[i][j] = BUTTON_OFF;
+                        this.board.updateBoard(this.board.grid);
+                        //TODO : Readd wall
+                        break;
+                    case BOX:
+                        //If I find a box, I'd like to move it out of the way so that it won't block my path to the goal
+                        //But I can only look one space ahead unless I want the complexity to explode
+                        //If we looked ahead it would mean a complexity of O(4^n) where n is how far we want to look, typically the width of the map
+                        //TODO : Do this function anyway and see it fry your computer
                 }
             }
         }
