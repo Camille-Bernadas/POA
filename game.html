@@ -3,6 +3,7 @@
   <head>
     <title>Escape Game</title>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">var version = "0.9"</script>
     <script type="text/javascript" src="Agent.js" defer></script>
     <script type="text/javascript" src="Board.js" defer></script>
     <script type='text/javascript' src='astar.js'></script>
@@ -16,9 +17,9 @@
 
     </div>
 
-    <input type="button" value="Save Map">
+    <input type="button" value="Save Map" id="save">
     <input type="file"
-       id="loadMap" name="loadMap"
+       id="load" name="loadMap"
        accept=".json,application/json"
        value="Load Map">
 
