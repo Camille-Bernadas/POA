@@ -7,12 +7,19 @@
     <script type="text/javascript" src="Board.js" defer></script>
     <script type='text/javascript' src='astar.js'></script>
     <script type="text/javascript" src="game.js" defer></script>
+    <script type="text/javascript" src="mapSaveLoader.js" defer></script>
   </head>
 
   <body>
     <div id="game">
 
     </div>
+
+    <input type="button" value="Save Map">
+    <input type="file"
+       id="loadMap" name="loadMap"
+       accept=".json,application/json"
+       value="Load Map">
 
   </body>
 </html>
