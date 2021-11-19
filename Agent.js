@@ -44,21 +44,24 @@ class Agent {
 
     interact(){
       //Interactable
-      for(let i = this.x-1; i<=this.x+1; i++) {
-          for(let j = this.y-1; j<=this.y+1; j++) {
-              if(i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
-                  if(this.board.grid[i][j] == BUTTON_OFF) {
-                      this.board.grid[i][j] = BUTTON_ON;
-                      this.board.updateBoard(this.board.grid);
-                  }
-                  else if(this.board.grid[i][j] == BUTTON_ON) {
-                      this.board.grid[i][j] = BUTTON_OFF;
-                      this.board.updateBoard(this.board.grid);
-                  }
-              }
-          }
-      }
-      return;
+        let x = this.x;
+        let y = this.y;
+        let posInter = [[x-1, y], [x+1, y], [x, y-1], [x, y+1]]
+
+        for(let pos of posInter) {
+            let i = pos[0];
+            let j = pos[1];
+            if (i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
+                if (this.board.grid[i][j] == BUTTON_OFF) {
+                    this.board.grid[i][j] = BUTTON_ON;
+                    this.board.updateBoard(this.board.grid);
+                } else if (this.board.grid[i][j] == BUTTON_ON) {
+                    this.board.grid[i][j] = BUTTON_OFF;
+                    this.board.updateBoard(this.board.grid);
+                }
+            }
+        }
+        return;
     }
 
 }
