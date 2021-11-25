@@ -23,15 +23,20 @@ function loadMapToGame(){
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
 	    	filecontent= JSON.parse(evt.target.result);
-
-	    	for(let x =0; x < filecontent.map.length; x++){
-				for(let y =0; y < filecontent.map[0].length; y++){
-					grid[x][y] = filecontent.map[x][y];
+	    	if(filecontent.height != gridSize) {
+	    		alert("La taille de grille ne correspond pas")
+	    	} else {
+	    		for(let x =0; x < filecontent.map.length; x++){
+					for(let y =0; y < filecontent.map[0].length; y++){
+						grid[x][y] = filecontent.map[x][y];
+					}
 				}
-			}
 			board.updateBoard(grid);
+	    	}
 	    }
 	}
+	console.log(grid)
+	activateDragsandClicks("mapsave.js")
 	
 	
 }

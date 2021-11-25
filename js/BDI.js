@@ -45,8 +45,31 @@ class BDI {
         }
     }
 
-    static interactWithBox() {
+    //Return true if by moving boxes we found a way to the goal (TODO : or to a new interactable)
+    //x, y are the coordinates of the box
+    static interactWithBox(x, y) {
+      //We check which directions we can move the box to
+      var graph = new Graph(grid);
+      var start = graph.grid[agent.x][agent.y];
+      let posInter = [[x-1, y, x+1, y], [x+1, y, x-1, y], [x, y-1, x, y+1], [x, y+1, x, y-1]];
 
+      //If there is a space for the player to go there
+      //Check if no coordinates are out of bound
+      for(pos of posInter) {
+        if(pos[0]>=0 && pos[0]<board.x && pos[2]>=0 && pos[2]<board.x && pos[1]>=0 && pos[1]<board.y && pos[3]>=0 && pos[3]<board.y) {
+          if(grid[pos[0]][pos[1]]==EMPTY || grid[x-1][y]==PLAYER) {
+            //If the box can be moved
+            if(grid[x+1][y]==EMPTY) {
+              //If there is a way for the player to go there
+              let end = graph.grid[x-1][y];
+              let result = astar.search(graph, start, end, {}, true);
+              if(result.length!==0) {
+                console.log(result);
+              }
+            }
+          }
+        }
+      }
     }
 
     static async deliberate() {

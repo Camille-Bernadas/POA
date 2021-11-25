@@ -1,27 +1,115 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Escape Game</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript">var version = "0.9"</script>
-    <script type="text/javascript" src="Agent.js" defer></script>
-    <script type="text/javascript" src="Board.js" defer></script>
-    <script type='text/javascript' src='astar.js'></script>
-    <script type="text/javascript" src="game.js" defer></script>
-    <script type="text/javascript" src="mapSaveLoader.js" defer></script>
-    <script type="text/javascript" src="BDI.js" defer></script>
-  </head>
+<head>
+	<meta charset="utf-8">
+	<title>Escape Game Agent</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	<script type="text/javascript">var version = "0.9"</script>
+</head>
+<body>
+	
+	<div class="container">
 
-  <body>
-    <div id="game">
+		<div id="textTitle" class="textTitle">
+			<div class="text">ESCAPE</div>
+			<div class="text">GAME</div>
+			<div class="text">AGENT</div>
+		</div>
 
-    </div>
+		<form action="" method="get" class="formTag" id="form">
+	        <div class="form">
+	            <label for="name" class="formLabel">Taille de la grille</label>
+	            <input type="text" name="gridSize" id="gridSizeInput" placeHolder="max 25" value="20" required>
+	        </div>
+	        <input class="button " style="--fontSize: 14px; --margin:10px; --padding: 14px 10px" type="button" value="GRILLE ALÉATOIRE" onclick="startWithRandomMap();">
+	        <input class="button " style="--fontSize: 14px; --margin:0px; --padding: 14px 10px" type="button" value="GRILLE PERSONNALISÉE" onclick="customMap();">
+	    </form>
 
-    <input type="button" value="Save Map" id="save">
-    <input type="file"
-       id="load" name="loadMap"
-       accept=".json,application/json"
-       value="Load Map">
+		<div id="board">
+			<!-- <div class="tile wall"></div> -->
+		</div>
+		<div id="affichage">
 
-  </body>
+			<div id=elementsInput>
+				<div id="affichage1">
+					
+					<div class="elementInput" id="wall">
+					<input type="radio" id="wallInput" name="element" value="wall">
+	  				<img src="img/wall.jpg" alt="mur" width="50px" height="50px"/>
+	  				<label>(Mur)</label>
+					</div>
+
+					<div class="elementInput" id="box">
+					<input type="radio" id="boxInput" name="element" value="box">
+	  				<img src="img/box.png" alt="box" width="50px" height="50px"/>
+	  				<label>(Boîte)</label>
+					</div>
+
+					<div class="elementInput" id="button">
+					<input type="radio" id="buttonInput" name="element" value="button">
+	  				<img src="img/button_off.png" alt="button" width="50px" height="50px"/>
+	  				<label>(Bouton)</label>
+					</div>
+
+				</div>
+
+				<div>
+					
+					<div class="elementInput" id="agent">
+					<input type="radio" id="agentInput" name="element" value="agent">
+	  				<img src="img/agent.png" alt="agent" width="50px" height="50px"/>
+	  				<label>(Agent)</label>
+					</div>
+
+					<div class="elementInput" id=goal>
+					<input type="radio" id="goalInput" name="element" value="goal">
+	  				<img src="img/flag.png" alt="goal" width="50px" height="50px"/>
+	  				<label>(Arrivée)</label>
+					</div>
+
+					<div class="elementInput" id=remove>
+					<input type="radio" id="removeInput" name="element" value="remove">
+	  				<img src="img/cross.png" alt="goal" width="50px" height="50px"/>
+	  				<label>(Supprimer)</label>
+					</div>
+
+				</div>
+
+			</div>
+
+			<input class="button" style="--fontSize: 25px; --margin:0px; --padding: 14px 10px" type="button" value="LANCER LA PARTIE" onclick="startCustomedMap()">
+
+			<input type="button" class="button" style="--fontSize: 14px; --margin:0px; --padding: 14px 10px" value="SAUVEGARDER LA GRILLE" id="save">
+    		<input type="file" class="button inputfile"
+			       id="load" name="loadMap"
+			       accept=".json,application/json"
+			       value="Load Map">
+			<label style="--fontSize: 14px; --margin:0px; --padding: 14px 10px" class="button" for="load">CHARGER UNE GRILLE</label>
+		</div>
+
+		<div id="goMenu">
+			<input class="button " style="--fontSize: 14px; --margin:0px; --padding: 14px 10px" type="button" value="⬅ RETOUR AU MENU" onclick="location.reload()">
+		</div>
+
+	</div>
+
+	<!-- <div id="lien">
+		<a id="new" href="jeu.html">nouvelle partie</a>
+		<a id="rec" href="#">recommencer</a>
+	</div> -->
+
+	<script defer type="text/javascript" src="js/astar.js"></script>
+	<script type="text/javascript" src="js/Element.js"></script>
+	<script defer type="text/javascript" src="js/Board.js"></script>
+	<script defer type="text/javascript" src="js/BDI.js"></script>
+	<script defer type="text/javascript" src="js/Agent.js"></script>
+	<script type="text/javascript" src="js/Box.js"></script>
+	<script type="text/javascript" src="js/But.js"></script>
+	<script type="text/javascript" src="js/Button.js"></script>
+	<script type="text/javascript" src="js/Wall.js"></script>
+	<script type="text/javascript" src="js/Game.js"></script>
+	<script defer type="text/javascript" src="js/mapSaveLoader.js"></script>
+</body>
 </html>

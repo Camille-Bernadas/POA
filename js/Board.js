@@ -8,39 +8,57 @@ BOX = 6;
 
 class Board {
 
-	constructor(grid) {
-	  this.x = 20
-	  this.y = 20
-	  this.grid = grid
- 	  this.updateBoard(this.grid, this.x, this.y)
+	constructor(size) {
+	  this.x = size
+	  this.y = size
+	  this.grid = this.initializeGrid();
+ 	  this.updateBoard()
+	}
+
+	initializeGrid() {
+		let grid;
+		let gridSize = this.x;
+	  	grid = new Array(gridSize);
+	  	for (var i = 0; i < gridSize; i++) {
+	  		grid[i] = new Array(gridSize);
+	  		for (var j = 0; j < gridSize; j++) {
+	  			grid[i][j] = EMPTY;
+	  		}
+	  	}
+	  	return grid;
 	}
 
 	updateBoard() {
-	  var gameBoard = document.getElementById('game');
+		let grid = this.grid;
+	  	var gameBoard = document.getElementById('board');
 		gameBoard.innerHTML = "";
 		let width = grid[0].length;
 		console.log("width" + width);
-		let vh = Math.round((90/width)*100)/100;
+		let vh = Math.round((80/width)*100)/100;
 		console.log("vh" + vh);
 		let styleColumns = "";
 		for(let i = 0; i<width; i++) {
 			styleColumns += vh+"vh ";
 		}
 		gameBoard.style.gridTemplateColumns += styleColumns;
+		gameBoard.style.paddingLeft = 0;
 		for(let line of grid) {
 			for(let tile of line) {
 				let divTile = document.createElement("div");
 				gameBoard.appendChild(divTile);
 				divTile.classList.add("tile");
 				divTile.style.height = vh+"vh";
+				//divTile.style.width = vh+"vh";
+				divTile.style.border = "1.5px solid #fff";
 				switch(tile) {
 					case WALL:
 						divTile.classList.add("wall");
 						break;
 					case EMPTY:
+						//divTile.style.backgroundColor = "white";
 						break;
 					case PLAYER:
-						divTile.classList.add("player");
+						divTile.classList.add("agent");
 						break;
 					case GOAL:
 						divTile.classList.add("goal");
