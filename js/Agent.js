@@ -62,9 +62,9 @@ class Agent extends Element {
                         this.board.updateBoard(this.board.grid);
                         //TODO : Delete wall
                         break;
-                    case BUTTON_ON:
-                        this.board.grid[i][j] = BUTTON_OFF;
-                        this.board.updateBoard(this.board.grid);
+                    // case BUTTON_ON:
+                    //     this.board.grid[i][j] = BUTTON_OFF;
+                    //     this.board.updateBoard(this.board.grid);
                         //TODO : Re-add wall
                         break;
                     case BOX:

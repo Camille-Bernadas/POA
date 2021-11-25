@@ -191,6 +191,8 @@ class BDI {
         //If we activate all buttons and we still can't access the goal then we can't win
         if(BDI.howManyBoxesBlockingGoal(grid, agent)==-1) {
           console.log("There are no ways to win this game");
+          alert("There are no ways to win this game");
+          return false;
         }
 
         let boxes = this.findAllBoxInteractable();
