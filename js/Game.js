@@ -20,7 +20,6 @@ document.addEventListener('mouseup', () => {
 const timer = ms => new Promise(res => setTimeout(res, ms))
 
 function getRandomIntInclusive(min, max) {
-  console.log("random")
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min +1)) + min;
@@ -267,9 +266,7 @@ async function play(){
   var end = graph.grid[flagPosition.flagX][flagPosition.flagY];
 
   var result = astar.search(graph, start, end);
-  console.log(result)
   for(let i = 0; i < result.length; i++){
-    console.log(result[i].x - agent.x, result[i].y - agent.y)
     agent.move(result[i].x - agent.x, result[i].y - agent.y)
     await timer(69);
   }
@@ -315,7 +312,6 @@ function react(nomTouche){
   }
 
   if (nomTouche === ' ') {
-    console.log("Interact");
     agent.interact();
   }
 }

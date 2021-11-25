@@ -41,7 +41,6 @@ class Agent extends Element {
 
       this.board.grid[this.x][this.y] = PLAYER;
       this.board.updateBoard(this.board.grid);
-      console.log(this.x + "," + this.y);
       return;
     }
 

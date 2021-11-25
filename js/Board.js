@@ -30,12 +30,10 @@ class Board {
 
 	updateBoard() {
 		let grid = this.grid;
-	  	var gameBoard = document.getElementById('board');
+	  var gameBoard = document.getElementById('board');
 		gameBoard.innerHTML = "";
 		let width = grid[0].length;
-		console.log("width" + width);
 		let vh = Math.round((80/width)*100)/100;
-		console.log("vh" + vh);
 		let styleColumns = "";
 		for(let i = 0; i<width; i++) {
 			styleColumns += vh+"vh ";

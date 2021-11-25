@@ -35,10 +35,9 @@ function loadMapToGame(){
 	    	}
 	    }
 	}
-	console.log(grid)
 	activateDragsandClicks("mapsave.js")
-	
-	
+
+
 }
 
 
