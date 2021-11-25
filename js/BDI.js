@@ -15,6 +15,23 @@ class BDI {
         return sizeResult!==0;
     }
 
+    static howManyBoxesBlockingGoal(customGrid, agent) {
+      var graph = new Graph(customGrid);
+      var start = graph.grid[agent.x][agent.y];
+
+      var end = graph.grid[flagPosition.flagX][flagPosition.flagY];
+      //Look for the path to the goal ignoring boxes
+      let result = astar.search(graph, start, end, {}, false);
+      let nbBox = 0;
+      for(let node of result) {
+        if(node.weight==BOX) nbBox++;
+      }
+      console.log("Number of boxes : " + nbBox);
+      //No solution possible, either press more buttons or give up
+      if(result.length==0) return -1;
+      return nbBox;
+    }
+
     static findNearestInteractable() {
         var graph = new Graph(grid);
         var start = graph.grid[agent.x][agent.y];
@@ -51,7 +68,7 @@ class BDI {
 
     //Return true if by moving boxes we found a way to the goal (TODO : or to a new interactable)
     //x, y are the coordinates of the box
-    static interactWithBox(x, y, newGrid, newAgent, step) {
+    static interactWithBox(x, y, newGrid, newAgent, step, boxesToGoal) {
       console.log(step);
       if (step == 0) return false;
       //We check which directions we can move the box to
@@ -89,6 +106,7 @@ class BDI {
         }
       }
 
+      //If we unlocked a path to the goal we go for it
       for(let move of possibleMovements) {
         if(BDI.isGoalAccessible(move[1], move[2].x, move[2].y)) {
           console.log("SOLUTION!!!");
@@ -96,9 +114,13 @@ class BDI {
         }
       }
 
-      //If there is no immediate solutions, we look ahead in the future by 1
+      //If there is no immediate solutions, we look ahead in the future by 1 and see if we moved a box out of the goal way
       for(let move of possibleMovements) {
-        BDI.interactWithBox(move[3][0], move[3][1], move[1], move[2], step-1);
+        if(BDI.howManyBoxesBlockingGoal(move[1], move[2])<boxesToGoal) {
+          console.log("We managed to move a box out of the way!");
+          return true;
+        }
+        BDI.interactWithBox(move[3][0], move[3][1], move[1], move[2], step-1, boxesToGoal);
       }
     }
 
