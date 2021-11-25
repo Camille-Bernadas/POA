@@ -3,7 +3,7 @@ class Agent extends Element {
 	constructor(x, y, board) {
 		super(x, y);
 		this.board = board
-    this.move(0,0)
+    //this.move(0,0)
 	}
 
 	initialiser(x) {
@@ -54,6 +54,7 @@ class Agent extends Element {
             let i = pos[0];
             let j = pos[1];
             //Check all nearby interactable, we either do something that'll make the path shorter or that will make the goal available
+						//First we activate all the buttons
             if (i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
                 switch(this.board.grid[i][j]) {
                     case BUTTON_OFF:

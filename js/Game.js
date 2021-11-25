@@ -71,18 +71,18 @@ function startWithRandomMap() {
   }
 }
 
-function clickTile(e) {
+var ct = function clickTile(e) {
   drag = false;
   var x = e.clientX, y = e.clientY,
   elementMouseIsOver = document.elementFromPoint(x, y);
   fillTile(elementMouseIsOver)
 }
 
-function mousedownTile() {
+var mt = function mousedownTile() {
   drag = true;
 }
 
-function dragTile(e) {
+var dt = function dragTile(e) {
   if (drag) {
     var x = e.clientX, y = e.clientY,
     elementMouseIsOver = document.elementFromPoint(x, y);
@@ -90,7 +90,7 @@ function dragTile(e) {
   }
 }
 
-function linkWall(e) {
+var lw = function linkWall(e) {
 
   //desactivateDragsandClicks();
   let tiles = document.getElementsByClassName("tile");
@@ -100,11 +100,13 @@ function linkWall(e) {
   console.log("iB", lastButton[0])
   console.log("jB", lastButton[1])
 
-  if (e.target != undefined || e.target.classList.contains("wall")) {
+  if (e.target.classList.contains("wall")) {
+    console.log("J'ai appuyé sur un mur");
     let i = Math.floor(arry.indexOf(e.target)/gridSize)
     let j = arry.indexOf(e.target)%gridSize
     let buttonWall = [{i, j}, lastButton];
     buttonsWalls.push(buttonWall);
+    document.removeEventListener("click", lw, true);
     activateDragsandClicks();
   } else {
     alert("Vous devez lier avec un mur");
@@ -114,17 +116,17 @@ function linkWall(e) {
 
 function activateDragsandClicks() {
   boardDiv = document.getElementById("board");
-  boardDiv.addEventListener("mousemove", dragTile, true);
-  boardDiv.addEventListener("click", clickTile, true);
-  boardDiv.addEventListener("mousedown", mousedownTile, true);
+  boardDiv.addEventListener("mousemove", dt, true);
+  boardDiv.addEventListener("click", ct, true);
+  boardDiv.addEventListener("mousedown", mt, true);
 }
 
 function desactivateDragsandClicks() {
   boardDiv = document.getElementById("board");
   console.log(boardDiv);
-  boardDiv.removeEventListener("mousemove", dragTile, true);
-  boardDiv.removeEventListener("click", clickTile, true);
-  boardDiv.removeEventListener("mousedown", mousedownTile, true);
+  console.log(boardDiv.removeEventListener("mousemove", dt, true));
+  console.log(boardDiv.removeEventListener("click", ct, true));
+  console.log(boardDiv.removeEventListener("mousedown", mt, true));
 }
 
 function customMap() {
@@ -190,7 +192,7 @@ function fillTile(e) {
         tile.classList = "tile button-off"
         lastButton = {i, j}
         alert("Choisissez un mur à lier")
-        document.addEventListener("click", linkWall);
+        document.addEventListener("click", lw, true);
       }
     } else if (agentInput.checked) {
       if(countAgent === 0) {
@@ -344,7 +346,7 @@ function react(nomTouche){
   }
 
   if (nomTouche === 'p'){
-    play()
+    BDI.deliberate();
   }
   if (nomTouche === 'r'){
     restart()
