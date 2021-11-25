@@ -11,6 +11,12 @@ let flagPosition = {flagX: null, flagY: null};
 
 let countGoal = 0;
 let countAgent = 0;
+let countWall = 0;
+let countButton = 0;
+
+let buttonsWalls = new Array();
+
+let lastButton = new Array();
 
 let drag = false;
 document.addEventListener('mouseup', () => {
@@ -85,18 +91,41 @@ function dragTile(e) {
   }
 }
 
-function activateDragsandClicks() {
+function linkWall(e) {
+
+  //desactivateDragsandClicks();
   let tiles = document.getElementsByClassName("tile");
-  boardDiv.addEventListener("mousemove", dragTile);
-  boardDiv.addEventListener("click", clickTile);
-  boardDiv.addEventListener("mousedown", mousedownTile);
+  let arry = Array.from(e.target)
+
+  console.log("e", e.target)
+  console.log("iB", lastButton[0])
+  console.log("jB", lastButton[1])
+
+  if (e.target != undefined || e.target.classList.contains("wall")) {
+    let i = Math.floor(arry.indexOf(e.target)/gridSize)
+    let j = arry.indexOf(e.target)%gridSize
+    let buttonWall = [{i, j}, lastButton];
+    buttonsWalls.push(buttonWall);
+    activateDragsandClicks();
+  } else {
+    alert("Vous devez lier avec un mur");
+  }
+  
+}
+
+function activateDragsandClicks() {
+  boardDiv = document.getElementById("board");
+  boardDiv.addEventListener("mousemove", dragTile, true);
+  boardDiv.addEventListener("click", clickTile, true);
+  boardDiv.addEventListener("mousedown", mousedownTile, true);
 }
 
 function desactivateDragsandClicks() {
-  let tiles = document.getElementsByClassName("tile");
-  boardDiv.removeEventListener("mousemove", dragTile);
-  boardDiv.removeEventListener("click", clickTile);
-  boardDiv.removeEventListener("mousedown", mousedownTile);
+  boardDiv = document.getElementById("board");
+  console.log(boardDiv);
+  boardDiv.removeEventListener("mousemove", dragTile, true);
+  boardDiv.removeEventListener("click", clickTile, true);
+  boardDiv.removeEventListener("mousedown", mousedownTile, true);
 }
 
 function customMap() {
@@ -126,7 +155,7 @@ function fillTile(e) {
       if(element.classList.contains("tile")) {
         tile = element;
       }
-    }
+    }  
   } else {
     tile = e
   }
@@ -141,17 +170,29 @@ function fillTile(e) {
   let arry = Array.from(tiles)
   let i = Math.floor(arry.indexOf(tile)/gridSize)
   let j = arry.indexOf(tile)%gridSize
-
+  
   if(tile !== undefined) {
     if(wallInput.checked) {
+      countWall++;
       grid[i][j] = WALL
       tile.classList = "tile wall"
     } else if (boxInput.checked) {
       grid[i][j] = BOX
       tile.classList = "tile box"
     } else if (buttonInput.checked) {
-      grid[i][j] = BUTTON_OFF
-      tile.classList = "tile button-off"
+      if(countWall <= countButton) {
+        alert("Vous devez placer un mur avant")
+        drag = false;
+      } else {
+        console.log(boardDiv)
+        desactivateDragsandClicks();
+        countButton++;
+        grid[i][j] = BUTTON_OFF
+        tile.classList = "tile button-off"
+        lastButton = {i, j}
+        alert("Choisissez un mur à lier")
+        document.addEventListener("click", linkWall);
+      }
     } else if (agentInput.checked) {
       if(countAgent === 0) {
         grid[i][j] = PLAYER
@@ -177,6 +218,9 @@ function fillTile(e) {
       if(grid[i][j] === GOAL) {
         countGoal = 0;
       }
+      if(grid[i][j] === WALL) {
+        countWall = 0;
+      }
       grid[i][j] = EMPTY
       tile.classList = "tile";
     }
@@ -188,8 +232,8 @@ function startCustomedMap() {
   for (var i = 0; i < gridSize; i++) {
     for (var j = 0; j < gridSize; j++) {
       if(grid[i][j] === PLAYER) {
-        playerX = i;
-        playerY = j;
+        playerX = i; 
+        playerY = j; 
       } else if(grid[i][j] === GOAL) {
         goalX = i;
         goalY = j;
@@ -198,7 +242,7 @@ function startCustomedMap() {
   }
   if(playerX === undefined) {
     alert("Vous devez placer un agent !")
-  }
+  } 
   else if(goalX === undefined) {
     alert("Vous devez placer une arrivée !")
   } else {
@@ -283,7 +327,6 @@ function toggleWall(){
     grid[12][9] = 0
   }
   board.updateBoard(grid);
-
 }
 
 function react(nomTouche){
@@ -312,10 +355,5 @@ function react(nomTouche){
 
   if (nomTouche === 'w'){
     toggleWall()
-  }
-
-  if (nomTouche === ' ') {
-    console.log("Interact");
-    agent.interact();
   }
 }
