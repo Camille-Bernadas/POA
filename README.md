@@ -5,12 +5,13 @@
 * Programmation d'un jeu simple en 2D type escape-game en Javascript.
 * Programmation d'un Agent pouvant résoudre le niveau du jeu de manière intelligente.
 
--Touche espace pour interagir avec un élément
--Touche p pour laisser l'agent déliberer sur son prochain coup
--Flèches pour se déplacer / ZQSD
+#### Commandes
+* "Espace" pour interagir avec un élément
+* "p" pour laisser l'agent déliberer sur son prochain coup
+* "← ↑ ↓ →" pour se déplacer / Z Q S D
 
 #### Personnalisation de la carte
--Cliquez sur un élément à placer puis cliquez sur une case de la grille pour le poser 
--Il est possible de rester appuyé pour poser plusieurs éléments à la suite (à l'instar d'un crayon sur Paint)
+* Cliquez sur un élément à placer puis cliquez sur une case de la grille pour le poser 
+* Il est possible de rester appuyé pour poser plusieurs éléments à la suite (à l'instar d'un crayon sur Paint)
 
 https://docs.google.com/document/d/1xLdkUMYyaXzB1IZkwVPHG6WYb3qtpAnqiESxAF12aOc/edit?usp=sharing
