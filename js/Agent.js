@@ -44,6 +44,7 @@ class Agent extends Element {
       return;
     }
 
+
 		interact(){
       //Interactable
         let x = this.x;
@@ -53,18 +54,32 @@ class Agent extends Element {
         for(let pos of posInter) {
             let i = pos[0];
             let j = pos[1];
+            let wallCoords;
+            let wallI;
+            let wallJ;
             //Check all nearby interactable, we either do something that'll make the path shorter or that will make the goal available
 						//First we activate all the buttons
             if (i >= 0 && i < this.board.x && j >= 0 && j < this.board.y) {
                 switch(this.board.grid[i][j]) {
                     case BUTTON_OFF:
+                        console.log(i, j)
                         this.board.grid[i][j] = BUTTON_ON;
+                        wallCoords = getWallCoords({i: i, j: j});
+                        wallI = wallCoords.i
+                        wallJ = wallCoords.j
+                        this.board.grid[wallI][wallJ] = EMPTY;
                         this.board.updateBoard(this.board.grid);
+
                         //TODO : Delete wall
                         break;
-                    // case BUTTON_ON:
-                    //     this.board.grid[i][j] = BUTTON_OFF;
-                    //     this.board.updateBoard(this.board.grid);
+                    case BUTTON_ON:
+                        console.log(i, j)
+                        this.board.grid[i][j] = BUTTON_OFF;
+                        wallCoords = getWallCoords({i: i, j: j});
+                        wallI = wallCoords.i
+                        wallJ = wallCoords.j
+                        this.board.grid[wallI][wallJ] = WALL;
+                        this.board.updateBoard(this.board.grid);
                         //TODO : Re-add wall
                         break;
                     case BOX:

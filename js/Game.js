@@ -94,20 +94,21 @@ var lw = function linkWall(e) {
 
   //desactivateDragsandClicks();
   let tiles = document.getElementsByClassName("tile");
-  let arry = Array.from(e.target)
+  let arry = Array.from(tiles)
 
   console.log("e", e.target)
-  console.log("iB", lastButton[0])
-  console.log("jB", lastButton[1])
+  console.log("lastButton", lastButton)
 
   if (e.target.classList.contains("wall")) {
     console.log("J'ai appuyé sur un mur");
     let i = Math.floor(arry.indexOf(e.target)/gridSize)
     let j = arry.indexOf(e.target)%gridSize
-    let buttonWall = [{i, j}, lastButton];
+    console.log(i, j)
+    let buttonWall = {wall: {i, j}, button:lastButton};
     buttonsWalls.push(buttonWall);
+    alert("Le mur a été lié")
     document.removeEventListener("click", lw, true);
-    activateDragsandClicks();
+    setTimeout(() => {  activateDragsandClicks(); }, 200);
   } else {
     alert("Vous devez lier avec un mur");
   }
@@ -191,6 +192,7 @@ function fillTile(e) {
         grid[i][j] = BUTTON_OFF
         tile.classList = "tile button-off"
         lastButton = {i, j}
+        console.log(lastButton)
         alert("Choisissez un mur à lier")
         document.addEventListener("click", lw, true);
       }
@@ -220,7 +222,10 @@ function fillTile(e) {
         countGoal = 0;
       }
       if(grid[i][j] === WALL) {
-        countWall = 0;
+        countWall--;
+      }
+      if(grid[i][j] === BUTTON_OFF) {
+        countButton--;
       }
       grid[i][j] = EMPTY
       tile.classList = "tile";
@@ -318,14 +323,15 @@ async function play(){
   }
 }
 
-function toggleWall(){
-  if(grid[12][9] == 0){
-      grid[12][9] = 1
+function getWallCoords(buttonCoords){
+  
+  for(let i = 0; i < buttonsWalls.length; i++ ) {
+    if (buttonsWalls[i].button.i == buttonCoords.i &&
+      buttonsWalls[i].button.j == buttonCoords.j) {
+      return buttonsWalls[i].wall
+    }
   }
-  else{
-    grid[12][9] = 0
-  }
-  board.updateBoard(grid);
+  //board.updateBoard(grid);
 }
 
 function react(nomTouche){
@@ -350,10 +356,6 @@ function react(nomTouche){
   }
   if (nomTouche === 'r'){
     restart()
-  }
-
-  if (nomTouche === 'w'){
-    toggleWall()
   }
 
   if (nomTouche === ' ') {
