@@ -28,7 +28,8 @@ class Agent extends Element {
 
       if(this.board.grid[newX][newY] == GOAL) {
         alert("YOU WON");
-        restart();
+        location.reload();
+        //restart();
       }
 
       //Box handling

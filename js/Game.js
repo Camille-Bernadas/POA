@@ -60,10 +60,7 @@ function startWithRandomMap() {
     agent = new Agent(agentX, agentY, board)
     grid = board.grid;
     generateRandomMap(grid, agent)
-    document.addEventListener('keydown', (event) => {
-      const nomTouche = event.key;
-      react(nomTouche)
-    })
+    document.addEventListener('keydown', mv);
     start();
     document.getElementById("goMenu").style.display = "flex";
   } else {
@@ -88,6 +85,11 @@ var dt = function dragTile(e) {
     elementMouseIsOver = document.elementFromPoint(x, y);
     fillTile(elementMouseIsOver)
   }
+}
+
+var mv = function reactable(event) {
+  const nomTouche = event.key;
+  react(nomTouche)
 }
 
 var lw = function linkWall(e) {
@@ -136,7 +138,7 @@ function customMap() {
   if (isCorrectInput()) {
     document.getElementById("goMenu").style.display = "flex";
     boardDiv.style.paddingLeft = "100px"
-    let elements = document.getElementById("affichage");
+    let elements = document.getElementById("affichageAvantGame");
     elements.style.display = 'flex';
     board = new Board(gridSize)
     grid = board.grid;
@@ -145,6 +147,14 @@ function customMap() {
   } else {
     incorrectInput()
   }
+}
+
+function returnCustumizing() {
+  document.removeEventListener('keydown', mv);
+  document.getElementById("affichageInGame").style.display = "none";
+  let elements = document.getElementById("affichageAvantGame");
+  elements.style.display = 'flex';
+  activateDragsandClicks();
 }
 
 function fillTile(e) {
@@ -175,13 +185,31 @@ function fillTile(e) {
 
   if(tile !== undefined) {
     if(wallInput.checked) {
+      if(grid[i][j] === PLAYER) {
+        countAgent = 0;
+      }
+      if(grid[i][j] === GOAL) {
+        countGoal = 0;
+      }
       countWall++;
       grid[i][j] = WALL
       tile.classList = "tile wall"
     } else if (boxInput.checked) {
+      if(grid[i][j] === PLAYER) {
+        countAgent = 0;
+      }
+      if(grid[i][j] === GOAL) {
+        countGoal = 0;
+      }
       grid[i][j] = BOX
       tile.classList = "tile box"
     } else if (buttonInput.checked) {
+      if(grid[i][j] === PLAYER) {
+        countAgent = 0;
+      }
+      if(grid[i][j] === GOAL) {
+        countGoal = 0;
+      }
       if(countWall <= countButton) {
         alert("Vous devez placer un mur avant")
         drag = false;
@@ -252,17 +280,15 @@ function startCustomedMap() {
   else if(goalX === undefined) {
     alert("Vous devez placer une arrivée !")
   } else {
+    document.getElementById("affichageInGame").style.display = "flex";
     desactivateDragsandClicks();
     agent = new Agent(playerX, playerY, board)
     flagPosition.flagX = goalX;
     flagPosition.flagY = goalY;
-    let affichage = document.getElementById("affichage");
+    let affichage = document.getElementById("affichageAvantGame");
     affichage.style.display = "none"
 
-    document.addEventListener('keydown', (event) => {
-      const nomTouche = event.key;
-      react(nomTouche)
-    })
+    document.addEventListener('keydown', mv);
   }
 }
 
